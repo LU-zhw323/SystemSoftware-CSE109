@@ -1,0 +1,19 @@
+main ()
+{
+  int D.1809;
+
+  {
+    int x;
+    int y;
+
+    x = add (1, 2);
+    y = sub (3, 4);
+    x = x + y;
+    D.1809 = x;
+    return D.1809;
+  }
+  D.1809 = 0;
+  return D.1809;
+}
+
+

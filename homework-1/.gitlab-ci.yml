@@ -1,0 +1,6 @@
+image: "gcc:latest"
+
+test:gcc:
+  script:
+  - gcc --version
+  - gcc main.c

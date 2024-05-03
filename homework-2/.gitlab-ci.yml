@@ -1,0 +1,43 @@
+image: "gcc:7.5.0"
+
+test:gcc:
+  script:
+  - mkdir /foo
+  - mkdir /baz
+  - PATH=$PATH:/foo:/baz
+  - gcc --version
+  - make
+  - make install
+
+  - touch /foo/bar
+  - touch /baz/bar
+  - chmod +x /foo/bar
+  - chmod +x /baz/bar
+
+  - which gcc
+  - which make
+  - which my_which
+  - which -a bar
+  - which gcc bar
+  - which -a gcc bar
+
+  - test1=$(echo $(my_which gcc))
+  - test2=$(echo $(my_which make))
+  - test3=$(echo $(my_which my_which))
+  - test4=$(echo $(my_which -a bar))
+  - test5=$(echo $(my_which gcc bar))
+  - test6=$(echo $(my_which -a gcc bar))
+
+  - echo $test1
+  - echo $test2
+  - echo $test3
+  - echo $test4
+  - echo $test5
+  - echo $test6
+
+  - \[ "$test1" == "/usr/local/bin/gcc" \]; echo "$?"
+  - \[ "$test2" == "/usr/bin/make" \]; echo "$?"
+  - \[ "$test3" == "/usr/bin/my_which" \]; echo "$?"
+  - \[ "$test4" == "/foo/bar /baz/bar" \]; echo "$?"
+  - \[ "$test5" == "/usr/local/bin/gcc /foo/bar" \]; echo "$?"
+  - \[ "$test6" == "/usr/local/bin/gcc /foo/bar /baz/bar" \]; echo "$?"
